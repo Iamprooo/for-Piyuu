@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>For You ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 *{box-sizing:border-box;}
@@ -11,22 +11,20 @@
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  min-height:100dvh;
+  min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:15px;
   background:#ffdde1;
-  overflow-y:auto;   /* ✅ ALLOW SCROLL */
 }
 
-/* HEART WATERMARK BACKGROUND */
+/* HEART WATERMARK */
 body::before{
-  content:"❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️";
+  content:"❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️";
   position:fixed;
   inset:0;
-  font-size:40px;
-  line-height:1.6;
+  font-size:38px;
   opacity:0.08;
   text-align:center;
   transform:rotate(-15deg);
@@ -34,19 +32,15 @@ body::before{
 }
 
 /* SCREEN SHAKE */
-@keyframes screenShake {
-  0%{transform:translate(0);}
-  20%{transform:translate(-6px);}
-  40%{transform:translate(6px);}
-  60%{transform:translate(-6px);}
-  80%{transform:translate(6px);}
-  100%{transform:translate(0);}
+@keyframes screenShake{
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-6px);}
+  50%{transform:translateX(6px);}
+  75%{transform:translateX(-6px);}
+  100%{transform:translateX(0);}
 }
-.shake-screen{
-  animation:screenShake 0.6s;
-}
+.shake{animation:screenShake 0.6s;}
 
-/* CARD */
 .card{
   background:white;
   width:100%;
@@ -56,12 +50,6 @@ body::before{
   box-shadow:0 20px 40px rgba(0,0,0,0.2);
   text-align:center;
   animation:pop 0.4s ease;
-  position:relative;
-  z-index:2;
-
-  max-height:90dvh;                 /* ✅ FIT SCREEN */
-  overflow-y:auto;                  /* ✅ CARD SCROLL */
-  -webkit-overflow-scrolling:touch; /* iOS smooth */
 }
 
 .hidden{display:none;}
@@ -82,17 +70,15 @@ p{
   display:flex;
   justify-content:center;
   gap:12px;
-  flex-wrap:wrap;
   margin-top:15px;
 }
 
-.buttons button{
+button{
   padding:12px 26px;
   border:none;
   border-radius:24px;
   font-size:15px;
   cursor:pointer;
-  min-width:90px;
 }
 
 .yes{background:#e63946;color:white;}
@@ -102,7 +88,6 @@ p{
   font-size:28px;
   animation:beat 1s infinite;
 }
-
 @keyframes beat{
   0%,100%{transform:scale(1);}
   50%{transform:scale(1.2);}
@@ -113,11 +98,9 @@ p{
   animation:shine 2s infinite;
   margin:16px auto;
 }
-
 @keyframes shine{
-  0%{transform:scale(1);}
+  0%,100%{transform:scale(1);}
   50%{transform:scale(1.2);}
-  100%{transform:scale(1);}
 }
 
 /* CONFETTI */
@@ -127,14 +110,9 @@ p{
   height:14px;
   top:-20px;
   animation:fall linear forwards;
-  z-index:1;
 }
-
 @keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(720deg);
-    opacity:0;
-  }
+  to{transform:translateY(110vh) rotate(720deg);opacity:0;}
 }
 </style>
 </head>
@@ -142,41 +120,40 @@ p{
 <body>
 
 <!-- STEP 1 -->
-<div class="card" id="step1">
-  <p>Piyuu, mere paas ek surprise hai tere liye</p>
-  <div class="buttons">
-    <button class="yes" onclick="goToStep(2)">Batao Ji</button>
-  </div>
+<div class="card" id="s1">
+<p>Piyuu, mere paas ek surprise hai tere liye</p>
+<div class="buttons"><button class="yes" onclick="go(2)">Batao Ji</button></div>
 </div>
 
 <!-- STEP 2 -->
-<div class="card hidden" id="step2">
-  <p>Pata hai aaj thoda sa kharab gaya dinn</p>
-  <div class="buttons">
-    <button class="yes" onclick="goToStep(3)">hmm</button>
-  </div>
+<div class="card hidden" id="s2">
+<p>Pata hai aaj thoda sa kharab gaya dinn</p>
+<div class="buttons"><button class="yes" onclick="go(3)">hmm</button></div>
 </div>
 
 <!-- STEP 3 -->
-<div class="card hidden" id="step3">
-  <p>But me ek baat kehna chahta hu</p>
-  <div class="buttons">
-    <button class="yes" onclick="goToStep(4); emotionalEffect();">haaaaa</button>
-  </div>
+<div class="card hidden" id="s3">
+<p>But me ek baat kehna chahta hu</p>
+<div class="buttons"><button class="yes" onclick="go(4); effect()">haaaaa</button></div>
 </div>
 
-<!-- STEP 4 (MAIN MESSAGE) -->
-<div class="card hidden" id="step4">
-  <p>
+<!-- STEP 4A -->
+<div class="card hidden" id="s4">
+<p>
 Hey…
 aaj main thoda sa theek mood mein nahi tha,
 aur shayad uska bojh tujhpe aa gaya.
 I’m really, really sorry.
 
 Mera intention kabhi bhi tujhe hurt karna nahi hota.
-Bas kabhi kabhi main khud se hi haar jata hoon,
-aur uska asar tujhpe pad jata hai.
+Bas kabhi kabhi main khud se hi haar jata hoon.
+</p>
+<div class="buttons"><button class="yes" onclick="go(5)">Next</button></div>
+</div>
 
+<!-- STEP 4B -->
+<div class="card hidden" id="s5">
+<p>
 Par ek baat dil se sun le…
 main tujhe poore dil se,
 poori jaan se pyaar karta hoon.
@@ -190,86 +167,60 @@ koi bhi situation ho —
 main kabhi give up nahi karunga.
 Not on us. Not on you.
 
-Main tujhe kabhi akela nahi chhodunga.
 Main hamesha tere saath khada rahunga.
 
-Aur mujhe poora yakeen hai…
-ek din aayega
-jab main tujhe haq se apni wife bolunga.
+Ek din aayega jab
+main tujhe haq se apni wife bolunga.
 That day will come.
 
 I love you.
 Hamesha ❤️
-  </p>
-  <div class="heart">❤️</div>
-  <p>— Bacchaaa</p>
-  <div class="buttons">
-    <button class="yes" onclick="goToStep(5)">Next</button>
-  </div>
-</div>
-
-<!-- STEP 5 -->
-<div class="card hidden" id="step5">
-  <p>Aur ek baat bolni hai</p>
-  <div class="buttons">
-    <button class="yes" onclick="goToStep(6)">Bolooo</button>
-  </div>
+</p>
+<div class="heart">❤️</div>
+<div class="buttons"><button class="yes" onclick="go(6)">Next</button></div>
 </div>
 
 <!-- STEP 6 -->
-<div class="card hidden" id="step6">
-  <div id="proposalRing">💍</div>
-  <p>Will you marry me?</p>
-  <div class="buttons">
-    <button class="yes" onclick="acceptYes()">Yes</button>
-    <button class="no" id="noBtn">No</button>
-  </div>
+<div class="card hidden" id="s6">
+<div id="proposalRing">💍</div>
+<p>Will you marry me?</p>
+<div class="buttons">
+<button class="yes" onclick="yes()">Yes</button>
+<button class="no" id="no">No</button>
+</div>
 </div>
 
 <!-- STEP 7 -->
-<div class="card hidden" id="step7">
-  <p>YAYYYY ❤️🎉</p>
-  <p><b>Forever starts now.</b></p>
-  <div class="heart">💃🕺</div>
+<div class="card hidden" id="s7">
+<p>YAYYYY ❤️🎉</p>
+<p><b>Forever starts now.</b></p>
+<div class="heart">💃🕺</div>
 </div>
 
 <script>
-function goToStep(step){
-  for(let i=1;i<=7;i++){
-    document.getElementById('step'+i).classList.add('hidden');
-  }
-  document.getElementById('step'+step).classList.remove('hidden');
+function go(n){
+  document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
+  document.getElementById('s'+n).classList.remove('hidden');
 }
 
-/* VIBRATION + SCREEN SHAKE */
-function emotionalEffect(){
-  if(navigator.vibrate){
-    navigator.vibrate([150,80,150,80,200]);
-  }
-  document.body.classList.add('shake-screen');
-  setTimeout(()=>document.body.classList.remove('shake-screen'),600);
+function effect(){
+  if(navigator.vibrate) navigator.vibrate([150,80,150]);
+  document.body.classList.add('shake');
+  setTimeout(()=>document.body.classList.remove('shake'),600);
 }
 
-/* NO BUTTON ESCAPE */
-const noBtn=document.getElementById('noBtn');
-function moveNo(e){
+const no=document.getElementById('no');
+no.addEventListener('mouseover',move);
+no.addEventListener('touchstart',move);
+function move(e){
   e.preventDefault();
-  const x=Math.random()*120-60;
-  const y=Math.random()*80-40;
-  noBtn.style.transform=`translate(${x}px,${y}px)`;
+  no.style.transform=`translate(${Math.random()*120-60}px,${Math.random()*80-40}px)`;
 }
-noBtn.addEventListener('mouseover',moveNo);
-noBtn.addEventListener('touchstart',moveNo);
 
-/* YES CELEBRATION */
-function acceptYes(){
-  goToStep(7);
-
-  if(navigator.vibrate){
-    navigator.vibrate([200,100,200,100,300]);
-  }
-
-  for(let i=0;i<200;i++){
+function yes(){
+  go(7);
+  if(navigator.vibrate) navigator.vibrate([200,100,200,100,300]);
+  for(let i=0;i<180;i++){
     const c=document.createElement('div');
     c.className='confetti';
     c.style.left=Math.random()*100+'vw';
@@ -283,4 +234,3 @@ function acceptYes(){
 
 </body>
 </html>
-
